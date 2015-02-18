@@ -1,0 +1,19 @@
+{
+  "name": "sinject",
+  "version": "0.1.0",
+  "description": "Lightweight function injection framework",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/cgeorg/sinject"
+  },
+  "author": "Chris Marasti-Georg",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cgeorg/sinject/issues"
+  },
+  "homepage": "https://github.com/cgeorg/sinject"
+}
