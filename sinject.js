@@ -24,7 +24,8 @@ function SInject() {
     objMap[token] = obj;
   }
 
-  function inject(fn, tokens) {
+  function inject(fn/*, tokens */) {
+    var tokens = [].slice.call(arguments, 1);
     var fnDescription = {tokens: tokens, fn: fn};
     if (bootstrapped) {
       performInject(fnDescription);
@@ -33,7 +34,8 @@ function SInject() {
     }
   }
 
-  function register(token, obj, fn, tokens) {
+  function register(token, obj, fn/*, tokens */) {
+    var tokens = [].slice.call(arguments, 3);
     provide(token, obj);
     inject(fn, tokens);
   }
