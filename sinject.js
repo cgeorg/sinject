@@ -9,7 +9,7 @@ function SInject() {
   }
 
   function getObject(token) {
-    if (enableDebugging && bootstrapped) {
+    if (debug && bootstrapped) {
       if (!objMap.hasOwnProperty(token)) {
         console.warn('Token `' + token + '` was requested, but was never provided.');
       }
@@ -18,7 +18,7 @@ function SInject() {
   }
 
   function provide(token, obj) {
-    if (enableDebugging && objMap.hasOwnProperty(token)) {
+    if (debug && objMap.hasOwnProperty(token)) {
       console.warn('Token `' + token + '` is being re-defined, from `' + objMap[token] + '` to `' + obj + '`.');
     }
     objMap[token] = obj;
