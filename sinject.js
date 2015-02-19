@@ -14,12 +14,16 @@
     var debug = false;
     var bootstrapped = false;
 
+    var config = {
+      lazyInject: true
+    };
+
     function enableDebugging() {
       debug = true;
     }
 
     function getObject(token) {
-      if (debug && bootstrapped) {
+      if (debug && bootstrapped && !config.lazyInject) {
         if (!objMap.hasOwnProperty(token)) {
           console.warn('Token `' + token + '` was requested, but was never provided.');
         }
@@ -32,15 +36,17 @@
         console.warn('Token `' + token + '` is being re-defined, from `' + objMap[token] + '` to `' + obj + '`.');
       }
       objMap[token] = obj;
+      if(bootstrapped) {
+        performInjections();
+      }
     }
 
     function inject(fn/*, tokens */) {
       var tokens = [].slice.call(arguments, 1);
       var fnDescription = {tokens: tokens, fn: fn};
+      registered.push(fnDescription);
       if (bootstrapped) {
-        performInject(fnDescription);
-      } else {
-        registered.push(fnDescription);
+        performInjections();
       }
     }
 
@@ -51,12 +57,32 @@
     }
 
     function performInject(fnDescription) {
+      if(config.lazyInject && fnDescription.tokens) {
+        if(fnDescription.tokens.some(function(token) {
+            return !objMap.hasOwnProperty(token);
+          })) {
+          if(debug) {
+            console.log('Dependencies are not all ready for function `' + fnDescription.fn + '`, deferring injection.');
+          }
+          return false;
+        }
+      }
+      //TODO allow return value to do anything?
       fnDescription.fn.apply(undefined, fnDescription.tokens && fnDescription.tokens.map(getObject));
+      return true;
     }
 
-    function bootstrap() {
-      registered.forEach(performInject);
-      registered = [];
+    function performInjections() {
+      registered = registered.filter(function (fnDescription) {
+        return !performInject(fnDescription);
+      });
+    }
+
+    function bootstrap(_config) {
+      //TODO: merge _config into config
+      config = _config || config;
+
+      performInjections();
       bootstrapped = true;
     }
 
