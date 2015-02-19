@@ -2,7 +2,7 @@
   "name": "sinject",
   "version": "0.1.0",
   "description": "Lightweight function injection framework",
-  "main": "index.js",
+  "main": "sinject.js",
   "scripts": {
     "test": "node test"
   },
