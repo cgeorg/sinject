@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/cgeorg/sinject/issues"
   },
-  "homepage": "https://github.com/cgeorg/sinject"
+  "homepage": "https://github.com/cgeorg/sinject",
+  "devDependencies": {
+    "tape": "^3.5.0",
+    "tape-catch": "^1.0.4"
+  }
 }
