@@ -43,6 +43,13 @@
 
     function inject(fn/*, tokens */) {
       var tokens = [].slice.call(arguments, 1);
+      if(Array.isArray(fn)) {
+        tokens = fn.slice(0, fn.length -1);
+        fn = fn[fn.length-1];
+        if(typeof fn !== 'function') {
+          throw new Error('An array was provided for injection (or $inject is used), but the last element was not a function');
+        }
+      }
       var fnDescription = {tokens: tokens, fn: fn};
       registered.push(fnDescription);
       if (bootstrapped) {
@@ -53,6 +60,12 @@
     function register(token, obj, fn/*, tokens */) {
       var tokens = [].slice.call(arguments, 3);
       provide(token, obj);
+      if(arguments.length === 2) {
+        fn = obj.$inject;
+        if(!fn) {
+          throw new Error('register called for token ' + token + ' without inject function, and no $inject function exists');
+        }
+      }
       inject(fn, tokens);
     }
 

@@ -47,3 +47,50 @@ test('inject circular with register', function (t) {
 
   sinject.bootstrap();
 });
+
+test('inject circular register with array', function (t) {
+  t.timeoutAfter(100);
+  t.plan(2);
+
+  var obj1 = {
+        inject: ['obj2', function (_obj2) {
+          t.equals(_obj2, obj2, 'Injected correct object');
+        }]
+      },
+      obj2 = {
+        inject: ['obj1', function (_obj1) {
+          t.equals(_obj1, obj1, 'Injected correct object');
+        }]
+      };
+
+  var sinject = require('../sinject').createNew();
+
+  sinject.register('obj1', obj1, obj1.inject);
+  sinject.register('obj2', obj2, obj1.inject);
+
+  sinject.bootstrap();
+});
+
+test('inject circular register with convention', function (t) {
+  t.timeoutAfter(100);
+  t.plan(2);
+
+  var obj1 = {
+        $inject: ['obj2', function (_obj2) {
+          t.equals(_obj2, obj2, 'Injected correct object');
+        }]
+      },
+      obj2 = {
+        $inject: ['obj1', function (_obj1) {
+          t.equals(_obj1, obj1, 'Injected correct object');
+        }]
+      };
+
+  var sinject = require('../sinject').createNew();
+
+  sinject.register('obj1', obj1);
+  sinject.register('obj2', obj2);
+
+  sinject.bootstrap();
+});
+
