@@ -32,7 +32,7 @@ function module1() {
 
 function module2() {
     var myThing2 = {
-        inject: ['myThing1', function(myThing1) {
+        $inject: ['myThing1', function(myThing1) {
             console.log('got mything1: ' + myThing1.hey);
         }],
         hey: 'thing 2'
