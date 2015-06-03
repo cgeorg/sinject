@@ -18,7 +18,7 @@
   "homepage": "https://github.com/cgeorg/sinject",
   "devDependencies": {
     "require-directory": "^2.1.0",
-    "tape": "^3.5.0",
+    "tape": "^4.0.0",
     "tape-catch": "^1.0.4"
   }
 }
