@@ -13,6 +13,7 @@ example below.
 [![npm version](https://badge.fury.io/js/sinject.svg)](http://badge.fury.io/js/sinject)
 [![Dependency Status](https://david-dm.org/cgeorg/sinject.svg)](https://david-dm.org/cgeorg/sinject)
 [![devDependency Status](https://david-dm.org/cgeorg/sinject/dev-status.svg)](https://david-dm.org/cgeorg/sinject#info=devDependencies)
+[![CI Build](https://travis-ci.org/cgeorg/sinject.svg?branch=master)](https://travis-ci.org/cgeorg/sinject)
 
 ## Usage
 
